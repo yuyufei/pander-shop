@@ -1,0 +1,38 @@
+server:
+  port: 10087
+
+spring:
+  application:
+    name: pander-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipaddress}:${server.port}
+    ip-address: 127.0.0.1
+    
+zuul:
+  prefix: /pander
+  retryable: true
+  routes:
+    pander-user: /user/**
+  add-host-header: true ##携带请求本身的head信息
+  sensitive-headers: ##匹配禁止使用的头信息，这里配置为null
+
+
+pander: 
+  jwt:
+    cookieName: PANDER_TOKEN
+    pubKeyPath: /Users/fly/.ssh/id_rsa.pub # 公钥地址
+  filter:
+    allowPaths:
+      - /pander/auth
+      - /pander/search
+      - /pander/user/register
+      - /pander/user/check
+      - /pander/user/code
+      - /pander/item
