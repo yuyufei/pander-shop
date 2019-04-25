@@ -1,0 +1,12 @@
+pander: 
+  jwt:
+    cookieName: PANDER_TOKEN
+    pubKeyPath: /Users/fly/.ssh/id_rsa.pub # 公钥地址
+  filter:
+    allowPaths:
+      - /pander/auth
+      - /pander/search
+      - /pander/user/register
+      - /pander/user/check
+      - /pander/user/code
+      - /pander/item
